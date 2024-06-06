@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
-import men from '../collections/men.json'
 import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
 import CssBaseline from '@mui/material/CssBaseline';

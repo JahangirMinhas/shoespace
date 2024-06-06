@@ -4,7 +4,7 @@
         "brand": "Jordan",
         "collection": "Men's",
         "color": "Grey / Silver",
-        "price": "$180.00",
+        "price": "180",
         "src": "mens/jordan-retro-1-low-og.jpg"
     },
     {
@@ -12,7 +12,7 @@
         "brand": "Nike",
         "collection": "Men's",
         "color": "Concord / University Red / White",
-        "price": "$150.00",
+        "price": "$150",
         "src": "mens/nike-dunk-low.jpg"
     },
     {
@@ -20,7 +20,7 @@
         "brand": "New Balance",
         "collection": "Women's",
         "color": "Grey / Beige / White",
-        "price": "$150.00",
+        "price": "$150",
         "src": "womens/new-balance-550.jpg"
     },
     {
@@ -28,7 +28,7 @@
         "brand": "Jordan",
         "collection": "Men's",
         "color": "White / Green / Grey",
-        "price": "$150.00",
+        "price": "$150",
         "src": "mens/jordan-tatum-2.jpg"
     }
 ]
