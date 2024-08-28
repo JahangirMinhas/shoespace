@@ -13,7 +13,7 @@ const CollectionPage = () => {
   const [collection, setCollection] = useState([]);
 
   useEffect(() => {
-    axios.get(`http://localhost:3001/api/collections/${type}`).then(response => {
+    axios.get(`http://localhost:3001/api/products/collections/${type}`).then(response => {
       setCollection(response.data);
     }).catch(error => {
       console.error('There was an error fetching the products!', error);

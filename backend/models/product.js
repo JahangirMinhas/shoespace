@@ -11,15 +11,40 @@ class Product {
     this.src = src;
   }
 
-  static getByCollection(collection, callback) {
-    db.query('SELECT * FROM products WHERE collection = ?', [collection], (err, results) => {
-      if (err) {
-        callback(err, null);
-      } else {
-        const products = results.map(row => new Product(row.id, row.title, row.brand, row.collection, row.color, row.price, row.src));
-        callback(null, products);
-      }
-    });
+  static async getByCollection(collection) {
+    try {
+      const [results] = await db.query('SELECT * FROM products WHERE collection = ?', [collection]);
+      const products = results.map(row => new Product(row.id, row.title, row.brand, row.collection, row.color, row.price, row.src));
+      return products;
+    } catch (err) {
+      throw err;
+    }
+  }
+
+  static async getBySearch(term) {
+    try {
+      const [results] = await db.query(
+        'SELECT * FROM products WHERE title LIKE ?',
+        [`%${term}%`]
+      );
+      const products = results.map(row => new Product(row.id, row.title, row.brand, row.collection, row.color, row.price, row.src));
+      return products;
+    } catch (err) {
+      throw err;
+    }
+  }
+
+  static async getByPrice(minPrice = 0, maxPrice = 500) {
+    try {
+      const [results] = await db.query(
+        'SELECT * FROM products WHERE price BETWEEN ? AND ?',
+        [minPrice, maxPrice]
+      );
+      const products = results.map(row => new Product(row.id, row.title, row.brand, row.collection, row.color, row.price, row.src));
+      return products;
+    } catch (err) {
+      throw err;
+    }
   }
 }
 
