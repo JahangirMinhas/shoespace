@@ -14,8 +14,8 @@ export default function ProdCard({ title, collection, color, price, src }) {
           alt={title}
           image={src}
           sx={{
-            height: 250, // Define the desired height of the CardMedia
-            objectFit: 'cover', // Scale the image to cover the entire container
+            height: 250,
+            objectFit: 'cover',
           }}
         />
         <CardContent>

@@ -66,13 +66,13 @@ export default function MainBar() {
               <InputBase
               sx={{ ml: 1, flex: 1 }}
               placeholder="Search"
-              value={searchQuery} // Bind the input value to the state
-              onChange={(e) => setSearchQuery(e.target.value)} // Update state on input change
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
             />
             <IconButton
               type="button"
               sx={{ p: '10px' }}
-              onClick={() => handleSearch(searchQuery)} // Pass the current input value to handleSearch
+              onClick={() => handleSearch(searchQuery)}
             >
               <SearchIcon />
             </IconButton>

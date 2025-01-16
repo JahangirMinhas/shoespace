@@ -1,6 +1,7 @@
 const db = require('./config/db')
 const express = require('express');
 const app = express();
+require('dotenv').config();
 const cors = require('cors');
 
 const session = require('express-session');
@@ -30,7 +31,7 @@ const sessionStore = new MySQLStore({
 });
 
 app.use(session({
-  secret: '798114502ShoeSpace1!',
+  secret: process.env.SECRET,
   resave: false,
   saveUninitialized: false,
   store: sessionStore,

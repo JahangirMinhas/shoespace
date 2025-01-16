@@ -2,8 +2,10 @@ const Product = require('../models/product');
 
 exports.getProductsByCollection = async (req, res) => {
   const collection = req.params.type;
+  const { brands, minPrice = 0, maxPrice = 500 } = req.query;
+
   try {
-    const products = await Product.getByCollection(collection);
+    const products = await Product.getFilteredProducts(collection, brands, minPrice, maxPrice);
     res.json(products);
   } catch (err) {
     console.error('Error fetching products:', err);
@@ -13,7 +15,7 @@ exports.getProductsByCollection = async (req, res) => {
 
 exports.getProductsBySearch = async (req, res) => {
   const searchTerm = req.query.query;
-  console.log(searchTerm)
+  console.log(searchTerm);
   if (!searchTerm) {
     return res.status(400).json({ message: 'Search term is required' });
   }

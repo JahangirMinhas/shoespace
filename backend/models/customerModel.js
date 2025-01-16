@@ -26,24 +26,50 @@ const getUniqueId = async () => {
 };
 
 class CustomerModel {
-    static async createCustomer({ email, password, firstName, lastName, address, phoneNumber }) {
+    static async createCustomer({ email, password, firstName, lastName, address, phoneNumber, verificationToken, tokenExpires }) {
         const id = await getUniqueId();
         const hashedPassword = await hashPassword(password);
 
         const query = `
-            INSERT INTO customers (id, password_hash, email, first_name, last_name, address, phone_number, created_at)
-            VALUES (?, ?, ?, ?, ?, ?, ?, NOW())
+            INSERT INTO customers (id, password_hash, email, first_name, last_name, address, phone_number, is_verified, verification_token, token_expires, created_at)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW())
         `;
 
-        // Execute the query
-        const [result] = await db.query(query, [id, hashedPassword, email, firstName, lastName, address, phoneNumber]);
+        const [result] = await db.query(query, [
+            id,
+            hashedPassword,
+            email,
+            firstName,
+            lastName,
+            address,
+            phoneNumber,
+            false,
+            verificationToken,
+            tokenExpires,
+        ]);
         return result.insertId;
     }
 
     static async findByEmail(email) {
         const query = 'SELECT * FROM customers WHERE email = ?';
         const [rows] = await db.query(query, [email]);
-        return rows[0]; 
+        return rows[0];
+    }
+
+    static async findById(id) {
+        const query = 'SELECT * FROM customers WHERE id = ?';
+        const [rows] = await db.query(query, [id]);
+        return rows[0];
+    }
+
+    static async verifyCustomer(verificationToken) {
+        const query = `
+            UPDATE customers 
+            SET is_verified = TRUE, verification_token = NULL, token_expires = NULL
+            WHERE verification_token = ? AND token_expires > NOW()
+        `;
+        const [result] = await db.query(query, [verificationToken]);
+        return result.affectedRows > 0;
     }
 }
 
